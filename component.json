@@ -1,0 +1,12 @@
+{
+	"name": "wait-for-event",
+	"scripts": [
+		"index.js",
+		"lib/WaitFor.js",
+		"lib/WaitForAll.js"
+	],
+	"dependencies": {
+		"component/emitter": "1.1.3",
+		"digitaledgeit/js-extend": "0.1.0"
+	}
+}

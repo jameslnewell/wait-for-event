@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script src="../build/build.js"></script>
+	<script>
+
+		var
+			emitter     = require('component~emitter@1.1.3')
+			waitForAll  = require('wait-for-event').waitForAll
+		;
+
+		var
+			valid       = true
+			controls    = [
+				new emitter(),
+				new emitter(),
+				new emitter()
+			]
+		;
+
+		waitForAll(
+			'validate',
+			controls,
+			function(v) {
+				valid = valid && v;
+				console.log('control is', v, '- all is', valid);
+			},
+			function() {
+				console.log('And the result is: ', valid);
+			}
+		);
+
+		controls[2].emit('validate', true);
+		controls[0].emit('validate', false);
+		controls[1].emit('validate', true);
+
+		console.log('done');
+
+	</script>
+</body>
+</html>
