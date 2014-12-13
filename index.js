@@ -14,8 +14,8 @@ module.exports = {
 	 * @param {Object}      options.passMeTheEmitter    Whether the source emitter is passed as the first argument to the `each` event
 	 */
 	waitForAll: function(event, emitters, each, done, options) {
-		options = options || {};
 
+		options           = options || {};
 		options.event     = event;
 		options.emitters  = emitters;
 

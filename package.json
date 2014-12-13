@@ -1,0 +1,19 @@
+{
+  "name": "wait-for-event",
+  "version": "0.1.0",
+  "description": "Waits for events to fire.",
+  "license": "MIT",
+  "author": "James Newell <james@digitaledgeit.com.au>",
+  "homepage": "https://github.com/digitaledgeit/js-wait-for-event",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/digitaledgeit/js-wait-for-event.git"
+  },
+  "bugs": {
+    "url": "https://github.com/digitaledgeit/js-wait-for-event/issues"
+  },
+  "dependencies": {
+    "component-emitter": "^1.1.3",
+    "extend-class": "^1.0.0"
+  }
+}

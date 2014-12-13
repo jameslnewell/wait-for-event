@@ -1,10 +1,10 @@
 # wait-for-event
 
-Waits for events to fire.
+Wait for events to be emitted.
 
 ## waitForAll(event, emitters, each, done)
 
-Wait for the event to emit on each emitter before calling `done`.
+Wait for an event to be emitted on each emitter before calling `done`.
 
 - `event` - the event to listen for
 - `emitters` - the event emitters to listen to
