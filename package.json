@@ -1,7 +1,7 @@
 {
   "name": "wait-for-event",
-  "version": "0.1.0",
-  "description": "Waits for events to fire.",
+  "version": "0.2.0",
+  "description": "Wait for events to be emitted.",
   "license": "MIT",
   "author": "James Newell <james@digitaledgeit.com.au>",
   "homepage": "https://github.com/digitaledgeit/js-wait-for-event",
