@@ -1,5 +1,6 @@
-var assert      = require('assert');
-var WaitForAll  = typeof(process) !== 'undefined' ? require('../lib/WaitForAll') : require('wait-for-event/lib/WaitForAll.js');
+var assert = require('assert');
+var WaitForAll  = require('../lib/WaitForAll');
+
 /**
  * Create an emitter
  * @returns {EventEmitter}

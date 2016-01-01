@@ -2,11 +2,19 @@
 
 Wait for events to be emitted.
 
+## Installation
+
+    npm install --save wait-for-event
+
+## Usage
+
+  
+
 ## waitForAll(event, emitters, each, done)
 
 Wait for an event to be emitted on each emitter before calling `done`.
 
-- `event` - the event to listen for
+- `event` - the name of the event to listen for
 - `emitters` - the event emitters to listen to
 - `each` - *optional* - called each time the event is emitted
 - `done` - called when the event has been emitted on each emitter
