@@ -169,6 +169,36 @@ describe('WaitForAll', function() {
 
 		});
 
+		it('should pass the emitter when I use the `passMeTheEmitter` option', function(done) {
+
+			var emitter1 = emitter();
+			var emitter2 = emitter();
+
+			var wfa = new WaitForAll({
+				emitters:         [emitter1, emitter2],
+				passMeTheEmitter: true
+			});
+
+			wfa.once('each', function(emitter) {
+
+				assert.equal(emitter, emitter1);
+
+				wfa.once('each', function(emitter) {
+					assert.equal(emitter, emitter2);
+				});
+
+			});
+
+			wfa.once('done', function() {
+				done();
+			});
+
+			wfa.wait();
+			emitter1.emit('done');
+			emitter2.emit('done');
+
+		});
+
 	});
 
 	describe('.stopListening()', function() {
