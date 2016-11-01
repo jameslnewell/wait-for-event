@@ -1,31 +1,21 @@
-var
-  emitter = require('component-emitter'),
-  waitForAll = require('..').waitForAll
-;
+'use strict';
+const EventEmitter = require('events').EventEmitter;
+const waitForAll = require('..').waitForAll;
 
-var
-  valid = true,
-  controls = [
-    new emitter(),
-    new emitter(),
-    new emitter()
-  ]
-;
+const controls = [
+  new EventEmitter(),
+  new EventEmitter(),
+  new EventEmitter()
+];
 
+let allControlsAreValid = true;
 waitForAll(
-  'validate',
-  controls,
-  function (v) {
-    valid = valid && v;
-    console.log('control is', v, '- all is', valid);
-  },
-  function () {
-    console.log('And the result is: ', valid);
-  }
+  'validate', controls,
+  controlIsValid => allControlsAreValid = allControlsAreValid && controlIsValid,
+  error => console.log('validation finished', error, allControlsAreValid)
 );
 
 controls[2].emit('validate', true);
-controls[0].emit('validate', false);
-controls[1].emit('validate', true);
+controls[0].emit('validate', true);
+controls[1].emit('validate', false);
 
-console.log('done');
