@@ -7,10 +7,11 @@
     "url": "git://github.com/digitaledgeit/js-wait-for-event.git"
   },
   "dependencies": {
-    "mocha": "^2.4.5"
+    "mocha": "^3.1.2",
+    "sinon": "^1.17.6"
   },
   "devDependencies": {
-    "mocha": "^2.3.4",
+    "mocha": "^3.1.2",
     "sinon": "^1.17.3"
   },
   "scripts": {

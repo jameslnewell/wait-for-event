@@ -5,6 +5,18 @@ const waitForLull = require('../lib/waitForLull');
 
 describe.only('waitForLull()', () => {
 
+  it('should call done() when no events or errors have been emitted', done => {
+
+    const emitter1 = new Emitter();
+    const emitter2 = new Emitter();
+
+    waitForLull('exit', [emitter1, emitter2], errors => {
+      assert.equal(errors.length, 0);
+      done();
+    });
+
+  });
+
   it('should call done() once when the events have stopped emitting', done => {
     let count = 0, interval;
 
