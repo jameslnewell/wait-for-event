@@ -20,7 +20,8 @@ describe('waitForAll()', () => {
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
 
-    waitForAll('foo', [emitter1, emitter2], () => {
+    waitForAll('foo', [emitter1, emitter2], errors => {
+      assert.equal(errors.length, 0);
       done();
     });
 
