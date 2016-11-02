@@ -2,17 +2,19 @@
   "name": "wait-for-event",
   "version": "1.0.0",
   "description": "Wait for events to be emitted.",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/digitaledgeit/js-wait-for-event.git"
-  },
-  "dependencies": {
-    "mocha": "^3.1.2",
-    "sinon": "^1.17.6"
-  },
+  "keywords": [
+    "event",
+    "emitter",
+    "wait",
+    "emitted",
+    "stream",
+    "waitfor",
+    "wait-for-event"
+  ],
+  "repository": "jameslnewell/wait-for-event",
   "devDependencies": {
     "mocha": "^3.1.2",
-    "sinon": "^1.17.3"
+    "sinon": "^1.17.6"
   },
   "scripts": {
     "test": "mocha"
