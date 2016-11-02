@@ -9,7 +9,8 @@
     "emitted",
     "stream",
     "waitfor",
-    "wait-for-event"
+    "wait-for-event",
+    "browserify"
   ],
   "repository": "jameslnewell/wait-for-event",
   "devDependencies": {

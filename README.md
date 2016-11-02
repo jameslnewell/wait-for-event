@@ -75,6 +75,7 @@ The `callback` is called with an array of errors that occurred.
 
 - **changed:** Removed the `each` callback from `waitForAll()` - you can register your own event handlers on the emitters to achieve the same outcome.
 - **changed:** `waitForAll()` now handles `error` events 
+- **changed:** Removed support for ComponentJS 
 - **added:** `waitForLull()`
 - **added:** `waitForLull()`
 - **fix:** `waitForAll()` no longer uses the primative method of counting the number of events that have been emitted - this method results in the callback being incorrectly called if an emitter emits the same event more than once. 
