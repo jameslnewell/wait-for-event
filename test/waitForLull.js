@@ -1,11 +1,20 @@
 'use strict';
 const assert = require('assert');
-const Emitter = require('events').EventEmitter
+const Emitter = require('events').EventEmitter;
 const waitForLull = require('../lib/waitForLull');
 
-describe.only('waitForLull()', () => {
+describe('waitForLull()', () => {
 
-  it('should call done() when no events or errors have been emitted', done => {
+  it('should call callback when there are no emitters', done => {
+
+    waitForLull('exit', [], errors => {
+      assert.equal(errors.length, 0);
+      done();
+    });
+
+  });
+
+  it('should call callback() when no events or errors have been emitted', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
@@ -17,7 +26,7 @@ describe.only('waitForLull()', () => {
 
   });
 
-  it('should call done() once when the events have stopped emitting', done => {
+  it('should call callback() once when the events have stopped emitting', done => {
     let count = 0, interval;
 
     const emitter1 = new Emitter();
@@ -43,7 +52,7 @@ describe.only('waitForLull()', () => {
   });
 
 
-  it('should call done() once when the errors have stopped emitting', done => {
+  it('should call callback() once when the errors have stopped emitting', done => {
     let count = 0, interval;
 
     const emitter1 = new Emitter();

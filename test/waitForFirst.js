@@ -1,10 +1,18 @@
 const assert = require('assert');
-const Emitter = require('events').EventEmitter
+const Emitter = require('events').EventEmitter;
 const waitForFirst = require('../lib/waitForFirst');
 
 describe('waitForFirst()', () => {
 
-  it('should call done() once when the event is emitted once by one emitter', done => {
+  it('should call callback when there are no emitters', done => {
+
+    waitForFirst('exit', [], error => {
+      done(error);
+    });
+
+  });
+
+  it('should call callback() once when the event is emitted once by one emitter', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
@@ -18,7 +26,7 @@ describe('waitForFirst()', () => {
 
   });
 
-  it('should call done() once when the event is emitted twice by one emitter', done => {
+  it('should call callback() once when the event is emitted twice by one emitter', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
@@ -33,7 +41,7 @@ describe('waitForFirst()', () => {
 
   });
 
-  it('should call done() once when the event is emitted once by both emitters', done => {
+  it('should call callback() once when the event is emitted once by both emitters', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
@@ -48,7 +56,7 @@ describe('waitForFirst()', () => {
 
   });
 
-  it('should call done() once with an error when an error is emitted by one emitter', done => {
+  it('should call callback() once with an error when an error is emitted by one emitter', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
@@ -62,7 +70,7 @@ describe('waitForFirst()', () => {
 
   });
 
-  it('should call done() once with an error when an error is emitted twice by one emitter', done => {
+  it('should call callback() once with an error when an error is emitted twice by one emitter', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
@@ -79,7 +87,7 @@ describe('waitForFirst()', () => {
 
   });
 
-  it('should call done() once with an error when an error is emitted once by both emitters', done => {
+  it('should call callback() once with an error when an error is emitted once by both emitters', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();

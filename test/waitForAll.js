@@ -6,15 +6,16 @@ const waitForAll = require('..').waitForAll;
 
 describe('waitForAll()', () => {
 
-  it('should call done when there are no emitters', (done) => {
+  it('should call callback when there are no emitters', done => {
 
-    waitForAll('foo', [], () => {
+    waitForAll('foo', [], errors => {
+      assert.equal(errors.length, 0);
       done();
     });
 
   });
 
-  it('should call done after all emitters emit the event', (done) => {
+  it('should call callback after all emitters emit the event', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
@@ -28,7 +29,7 @@ describe('waitForAll()', () => {
 
   });
 
-  it('should call done when an emitter emits an error', (done) => {
+  it('should call callback when an emitter emits an error', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
@@ -42,7 +43,7 @@ describe('waitForAll()', () => {
 
   });
 
-  it('should not call done more than once', (done) => {
+  it('should not call callback more than once', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
@@ -58,7 +59,7 @@ describe('waitForAll()', () => {
 
   });
 
-  it('it should not finish when not all the emitters finish', (done) => {
+  it('it should not finish when not all the emitters finish', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
@@ -71,7 +72,7 @@ describe('waitForAll()', () => {
 
   });
 
-  it('it should not finish when not all the emitters finish', (done) => {
+  it('it should not finish when not all the emitters finish', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
@@ -84,7 +85,7 @@ describe('waitForAll()', () => {
 
   });
 
-  it('should call each() for each event emitted', (done) => {
+  it('should call each() for each event emitted', done => {
 
     const emitter1 = new Emitter();
     const emitter2 = new Emitter();
