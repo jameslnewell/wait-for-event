@@ -30,7 +30,7 @@ emitters[2].emit('done');
 
 ### .waitForFirst(event, emitters, callback)
 
-Wait for a the first event or error to be emitted.
+Wait for a the first event or error event to be emitted.
 
 - `event : string` - the event to wait for
 - `emitters : Array<EventEmitter>` - the event emitters to wait for
@@ -38,32 +38,43 @@ Wait for a the first event or error to be emitted.
 
 The `callback` is called when:
 - the next event is emitted OR
-- the next error is emitted
+- the next error event is emitted
 
 The `callback` is called with the error, if one occurred.
 
-### .waitForLull(event, emitters, callback)
+### .waitForLull(event, emitters, [period,] callback)
 
-Wait for an event or error to stop being emitted for a period of time.
+Wait for an event or error event to stop being emitted for a period of time.
 
 - `event : string` - the event to wait for
 - `emitters : Array<EventEmitter>` - the event emitters to wait for
+- `period : number` - the number of milliseconds to wait for after the most recent event
 - `callback : function` - called when the event has been emitted on each emitter
 
 The `callback` is called when:
-- no events or errors have been emitted for the specified period of time
+- no events or error events have been emitted for the specified period of time
 
-The `callback` is called with an array of errors, if any occurred.
+The `callback` is called with an array of errors that occurred.
 
 ### .waitForAll(event, emitters, callback)
 
-Wait for an event or error to be emitted by every emitter.
+Wait for an event or error event to be emitted by each emitter.
 
 - `event : string` - the event to wait for
 - `emitters : Array<EventEmitter>` - the event emitters to wait for
 - `callback : function` - called when the event has been emitted on each emitter
 
 The `callback` is called when:
-- the event, or an error, has been emitted by each emitter
+- the event or error event has been emitted by each emitter
 
-The `callback` is called with an array of errors, if any occurred.
+The `callback` is called with an array of errors that occurred.
+
+## Change log
+
+# 1.0.0
+
+- **changed:** Removed the `each` callback from `waitForAll()` - you can register your own event handlers on the emitters to achieve the same outcome.
+- **changed:** `waitForAll()` now handles `error` events 
+- **added:** `waitForLull()`
+- **added:** `waitForLull()`
+- **fix:** `waitForAll()` no longer uses the primative method of counting the number of events that have been emitted - this method results in the callback being incorrectly called if an emitter emits the same event more than once. 

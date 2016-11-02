@@ -5,7 +5,7 @@ const waitForLull = require('../lib/waitForLull');
 
 describe('waitForLull()', () => {
 
-  it('should call callback when there are no emitters', done => {
+  it('should call callback() when there are no emitters', done => {
 
     waitForLull('exit', [], errors => {
       assert.equal(errors.length, 0);

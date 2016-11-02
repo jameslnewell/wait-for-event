@@ -1,4 +1,5 @@
 const assert = require('assert');
+const sinon = require('sinon');
 const Emitter = require('events').EventEmitter;
 const waitForFirst = require('../lib/waitForFirst');
 
@@ -101,6 +102,18 @@ describe('waitForFirst()', () => {
 
     emitter1.emit('error', new Error());
     emitter2.emit('error', new Error());
+
+  });
+
+  it('it should not call callback() when no events or errors are emitted', () => {
+
+    const emitter1 = new Emitter();
+    const emitter2 = new Emitter();
+    const callback = sinon.spy();
+
+    waitForFirst('foo', [emitter1, emitter2], callback);
+
+    assert(callback.notCalled);
 
   });
 
