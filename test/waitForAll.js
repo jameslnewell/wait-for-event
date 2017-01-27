@@ -1,0 +1,77 @@
+'use strict';
+const assert = require('assert');
+const sinon = require('sinon');
+const Emitter = require('events').EventEmitter;
+const waitForAll = require('..').waitForAll;
+
+describe('waitForAll()', () => {
+
+  it('should call callback() when there are no emitters', done => {
+
+    waitForAll('foo', [], errors => {
+      assert.equal(errors.length, 0);
+      done();
+    });
+
+  });
+
+  it('should call callback() after all emitters emit the event', done => {
+
+    const emitter1 = new Emitter();
+    const emitter2 = new Emitter();
+
+    waitForAll('foo', [emitter1, emitter2], errors => {
+      assert.equal(errors.length, 0);
+      done();
+    });
+
+    emitter1.emit('foo');
+    emitter2.emit('foo');
+
+  });
+
+  it('should call callback() when an emitter emits an error', done => {
+
+    const emitter1 = new Emitter();
+    const emitter2 = new Emitter();
+
+    waitForAll('foo', [emitter1, emitter2], () => {
+      done();
+    });
+
+    emitter1.emit('foo');
+    emitter2.emit('error');
+
+  });
+
+  it('should not call callback() more than once', done => {
+
+    const emitter1 = new Emitter();
+    const emitter2 = new Emitter();
+
+    waitForAll('foo', [emitter1, emitter2], () => {
+      done();
+    });
+
+    emitter1.emit('foo');
+    emitter1.emit('foo');
+    emitter2.emit('foo');
+    emitter2.emit('foo');
+
+  });
+
+  it('it should not call callback() when the event or an error has not been emitted by every emitter', () => {
+
+    const emitter1 = new Emitter();
+    const emitter2 = new Emitter();
+    const callback = sinon.spy();
+
+    waitForAll('foo', [emitter1, emitter2], callback);
+
+    emitter1.emit('foo');
+
+    assert(callback.notCalled);
+
+  });
+
+});
