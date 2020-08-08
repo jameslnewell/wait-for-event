@@ -37,6 +37,11 @@
     "pretty-quick": "^2.0.1",
     "typescript": "^3.9.7"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "scripts": {
     "format": "prettier --write .",
     "formatting": "prettier --check .",
