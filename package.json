@@ -44,11 +44,13 @@
   },
   "scripts": {
     "format": "prettier --write .",
+    "cleaning": "rm -rf lib",
     "formatting": "prettier --check .",
     "linting": "eslint src",
     "typing": "tsc",
     "building": "babel src --extensions .ts --ignore '**/*.tests.ts' --out-dir lib",
-    "testing": "jest"
+    "testing": "jest",
+    "prepublishOnly": "yarn run cleaning && yarn run formatting && yarn run linting && yarn run typing && yarn run building && yarn run testing"
   },
   "license": "MIT"
 }
