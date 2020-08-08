@@ -53,6 +53,7 @@ describe('waitForFirst()', () => {
   test('rejects when an error is emitted twice by the same emitter', async () => {
     const emitter1 = new EventEmitter();
     const emitter2 = new EventEmitter();
+    emitter1.on('error', () => {/* noop */});
     setImmediate(() => {
       emitter1.emit('error', 'Uh oh!');
       emitter1.emit('error', 'Uh oh!');
@@ -65,6 +66,7 @@ describe('waitForFirst()', () => {
   test('rejects when an error is emitted once by each emitter', async () => {
     const emitter1 = new EventEmitter();
     const emitter2 = new EventEmitter();
+    emitter2.on('error', () => {/* noop */});
     setImmediate(() => {
       emitter1.emit('error', 'Uh oh!');
       emitter2.emit('error', 'Uh oh!');

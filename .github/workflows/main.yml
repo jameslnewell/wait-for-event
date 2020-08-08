@@ -58,7 +58,7 @@ jobs:
       - run: yarn run typing
 
   testing:
-    name: Testing
+    name: 👮Testing
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
