@@ -42,7 +42,7 @@
     "formatting": "prettier --check .",
     "linting": "eslint src",
     "typing": "tsc",
-    "builing": "babel src --extensions .ts --ignore '**/*.tests.ts' --out-dir lib",
+    "building": "babel src --extensions .ts --ignore '**/*.tests.ts' --out-dir lib",
     "testing": "jest"
   },
   "license": "MIT"
