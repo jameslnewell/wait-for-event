@@ -98,7 +98,7 @@ await waitForFirst('done', emitters);
 
 ### `.waitForLull(event, emitters, [period,] [callback])`
 
-Wait for the event to stop being emitted by the emitters for a period of time.
+Wait for the event to stop being emitted by _any_ of the emitters for a period of time.
 
 - `event` - The event name
 - `emitters` - The event emitters
