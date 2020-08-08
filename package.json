@@ -1,6 +1,6 @@
 {
   "name": "wait-for-event",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Wait for events to be emitted.",
   "keywords": [
     "emit",
@@ -20,6 +20,7 @@
     "lib"
   ],
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "devDependencies": {
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.11.1",
