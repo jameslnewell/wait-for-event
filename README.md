@@ -19,18 +19,6 @@ Yarn:
 yarn add wait-for-event
 ```
 
-## Usage
-
-```js
-import {waitForAll} from 'wait-for-event';
-
-await waitForAll('finish', [
-  emitter1,
-  emitter2
-]);
-
-```
-
 ## API
   
 ### `.waitFor(event, emitter, [callback])`
