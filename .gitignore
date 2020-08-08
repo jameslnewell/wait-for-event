@@ -1,4 +1,3 @@
 .idea
-build
-components
+lib
 node_modules
