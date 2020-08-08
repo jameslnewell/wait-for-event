@@ -22,7 +22,11 @@ export const waitForAll = <Event extends string>(
     const emitted = new WeakMap<EventEmitter<Event>, boolean>();
     const handlers = new WeakMap<
       EventEmitter<Event>,
-      {boundHandleEvent: any; boundHandleError: any}
+      {
+        boundHandleEvent: () => void;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        boundHandleError: (error: any) => void;
+      }
     >();
 
     const startListening = (): void => {
@@ -38,10 +42,11 @@ export const waitForAll = <Event extends string>(
 
     const stopListening = (): void => {
       emitters.forEach((emitter) => {
-        const {boundHandleEvent, boundHandleError} =
-          handlers.get(emitter) || {};
-        removeListener(emitter, event, boundHandleEvent);
-        removeListener(emitter, 'error', boundHandleError);
+        const h = handlers.get(emitter);
+        if (h) {
+          removeListener(emitter, event, h.boundHandleEvent);
+          removeListener(emitter, 'error', h.boundHandleError);
+        }
       });
     };
 
@@ -55,6 +60,7 @@ export const waitForAll = <Event extends string>(
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleError = (_unused_emitter: EventEmitter<Event>) => (
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       error: any,
     ): void => {
       stopListening();
