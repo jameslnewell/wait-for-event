@@ -1,5 +1,5 @@
 import {addListener, removeListener} from './utils';
-import { EventEmitter, Callback } from './types';
+import {EventEmitter, Callback} from './types';
 
 /**
  * Wait for a single event or error to be emitted
@@ -14,26 +14,29 @@ import { EventEmitter, Callback } from './types';
  * @param   emitters
  * @param   callback
  */
-export const waitForFirst = <Event extends string>(event: Event, emitters: EventEmitter<Event>[], callback?: Callback): Promise<void> => {
+export const waitForFirst = <Event extends string>(
+  event: Event,
+  emitters: EventEmitter<Event>[],
+  callback?: Callback,
+): Promise<void> => {
   const promise = new Promise<void>((resolve, reject) => {
-
     const startListening = (): void => {
-      emitters.forEach(emitter => {
+      emitters.forEach((emitter) => {
         addListener(emitter, event, handleEvent);
         addListener(emitter, 'error', handleError);
       });
     };
 
     const stopListening = (): void => {
-      emitters.forEach(emitter => {
+      emitters.forEach((emitter) => {
         removeListener(emitter, event, handleEvent);
         removeListener(emitter, 'error', handleError);
       });
     };
-    
+
     const handleEvent = (): void => {
       stopListening();
-      resolve()
+      resolve();
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -41,17 +44,19 @@ export const waitForFirst = <Event extends string>(event: Event, emitters: Event
       stopListening();
       reject(error);
     };
-    
+
     if (emitters.length === 0) {
       resolve();
     } else {
-      startListening()
+      startListening();
     }
-
   });
 
   if (callback) {
-    promise.then(() => callback(undefined), error => callback(error));
+    promise.then(
+      () => callback(undefined),
+      (error) => callback(error),
+    );
   }
 
   return promise;

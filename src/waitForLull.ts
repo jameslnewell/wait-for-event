@@ -1,5 +1,5 @@
 import {addListener, removeListener} from './utils';
-import { EventEmitter, Callback } from './types';
+import {EventEmitter, Callback} from './types';
 
 /**
  * Wait for events and errors to stop being emitted for a period of time
@@ -14,14 +14,28 @@ import { EventEmitter, Callback } from './types';
  * @param   period
  * @param   callback
  */
-export function waitForLull<Event extends string>(event: Event, emitters: EventEmitter<Event>[], callback?: Callback): Promise<void>;
-export function waitForLull<Event extends string>(event: Event, emitters: EventEmitter<Event>[], period?: number, callback?: Callback): Promise<void>;
-export function waitForLull<Event extends string>(event: Event, emitters: EventEmitter<Event>[], periodOrCallback?: number | Callback, callback?: Callback): Promise<void> {
+export function waitForLull<Event extends string>(
+  event: Event,
+  emitters: EventEmitter<Event>[],
+  callback?: Callback,
+): Promise<void>;
+export function waitForLull<Event extends string>(
+  event: Event,
+  emitters: EventEmitter<Event>[],
+  period?: number,
+  callback?: Callback,
+): Promise<void>;
+export function waitForLull<Event extends string>(
+  event: Event,
+  emitters: EventEmitter<Event>[],
+  periodOrCallback?: number | Callback,
+  callback?: Callback,
+): Promise<void> {
   let period = 100;
-  
+
   if (typeof periodOrCallback === 'function') {
     callback = periodOrCallback;
-  } else if (typeof periodOrCallback !== 'undefined')  {
+  } else if (typeof periodOrCallback !== 'undefined') {
     period = periodOrCallback;
   }
 
@@ -29,14 +43,14 @@ export function waitForLull<Event extends string>(event: Event, emitters: EventE
     let timeout: NodeJS.Timeout | undefined = undefined;
 
     const startListening = (): void => {
-      emitters.forEach(emitter => {
+      emitters.forEach((emitter) => {
         addListener(emitter, event, handleEvent);
         addListener(emitter, 'error', handleError);
       });
     };
 
     const stopListening = (): void => {
-      emitters.forEach(emitter => {
+      emitters.forEach((emitter) => {
         removeListener(emitter, event, handleEvent);
         removeListener(emitter, 'error', handleError);
       });
@@ -45,10 +59,10 @@ export function waitForLull<Event extends string>(event: Event, emitters: EventE
     const handleEvent = (): void => {
       if (timeout) clearTimeout(timeout);
       timeout = setTimeout(() => {
-        stopListening(); 
+        stopListening();
         resolve();
       }, period);
-    }
+    };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleError = (error: any): void => {
@@ -66,8 +80,11 @@ export function waitForLull<Event extends string>(event: Event, emitters: EventE
 
   const cb = callback;
   if (cb) {
-    promise.then(() => cb(undefined), error => cb(error));
+    promise.then(
+      () => cb(undefined),
+      (error) => cb(error),
+    );
   }
 
   return promise;
-};
+}

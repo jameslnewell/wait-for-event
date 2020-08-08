@@ -2,8 +2,7 @@
 module.exports = {
   extends: '@jameslnewell/eslint-config',
   env: {
-    node: true
+    node: true,
   },
-  rules: {
-  }
-}
+  rules: {},
+};

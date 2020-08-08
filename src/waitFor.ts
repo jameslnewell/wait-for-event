@@ -1,9 +1,12 @@
-import {Callback, EventEmitter} from './types'
+import {Callback, EventEmitter} from './types';
 import {addListener, removeListener} from './utils';
 
-export const waitFor = <Event extends string>(event: Event, emitter: EventEmitter<Event>, callback?: Callback): Promise<void> => {
+export const waitFor = <Event extends string>(
+  event: Event,
+  emitter: EventEmitter<Event>,
+  callback?: Callback,
+): Promise<void> => {
   const promise = new Promise<void>((resolve, reject) => {
-
     const startListening = (): void => {
       addListener(emitter, event, handleEvent);
       addListener(emitter, 'error', handleError);
@@ -15,23 +18,25 @@ export const waitFor = <Event extends string>(event: Event, emitter: EventEmitte
     };
 
     const handleEvent = (): void => {
-      stopListening(); 
+      stopListening();
       resolve();
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleError = (error: any): void => {
-      stopListening(); 
+      stopListening();
       reject(error);
     };
 
     startListening();
-
   });
 
   if (callback) {
-    promise.then(() => callback(undefined), error => callback(error));
+    promise.then(
+      () => callback(undefined),
+      (error) => callback(error),
+    );
   }
-    
+
   return promise;
-}
+};

@@ -1,11 +1,10 @@
-
 export interface Callback {
-  (error: any): void 
+  (error: any): void;
 }
 
 export interface EventListener {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (...args: any[]): void
+  (...args: any[]): void;
 }
 
 export interface EventEmitterOn<Event extends string> {
@@ -24,4 +23,8 @@ export interface EventEmitterRemoveListener<Event extends string> {
   removeListener(event: Event | 'error', listener: EventListener): void;
 }
 
-export type EventEmitter<Event extends string> = (EventEmitterOn<Event> | EventEmitterAddListener<Event>) & (EventEmitterOff<Event> | EventEmitterRemoveListener<Event>);
+export type EventEmitter<Event extends string> = (
+  | EventEmitterOn<Event>
+  | EventEmitterAddListener<Event>
+) &
+  (EventEmitterOff<Event> | EventEmitterRemoveListener<Event>);

@@ -1,3 +1,3 @@
 module.exports = {
-    preset: "@jameslnewell/jest-preset"
+  preset: '@jameslnewell/jest-preset',
 };

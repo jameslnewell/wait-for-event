@@ -1046,6 +1046,11 @@
     "@manypkg/get-packages" "^1.1.0"
     babel-jest "^26.1.0"
 
+"@jameslnewell/prettier-config@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@jameslnewell/prettier-config/-/prettier-config-1.0.1.tgz#5bd6b247198d7a6148a1a605c9ff94ce51f3da1a"
+  integrity sha512-GeiPM7JhbZuFx2gjoZh1jB6tk8atEdS529Bqbweo/exSAaESW/7jsqJ5rkDy1Trm31dYQnQG0ef1EBmtWxixdg==
+
 "@jameslnewell/typescript-config@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@jameslnewell/typescript-config/-/typescript-config-3.0.0.tgz#0c283cd3d43b37b57f3db4402b2462725d9540a7"

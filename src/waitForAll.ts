@@ -1,5 +1,5 @@
 import {addListener, removeListener} from './utils';
-import { EventEmitter, Callback } from './types';
+import {EventEmitter, Callback} from './types';
 
 /**
  * Wait for an event or error to be emitted by every emitter
@@ -13,13 +13,20 @@ import { EventEmitter, Callback } from './types';
  * @param   emitters
  * @param   callback
  */
-export const waitForAll = <Event extends string>(event: Event, emitters: EventEmitter<Event>[], callback?: Callback): Promise<void> => {
+export const waitForAll = <Event extends string>(
+  event: Event,
+  emitters: EventEmitter<Event>[],
+  callback?: Callback,
+): Promise<void> => {
   const promise = new Promise<void>((resolve, reject) => {
     const emitted = new WeakMap<EventEmitter<Event>, boolean>();
-    const handlers = new WeakMap<EventEmitter<Event>, {boundHandleEvent: any, boundHandleError: any}>();
+    const handlers = new WeakMap<
+      EventEmitter<Event>,
+      {boundHandleEvent: any; boundHandleError: any}
+    >();
 
     const startListening = (): void => {
-      emitters.forEach(emitter => {
+      emitters.forEach((emitter) => {
         const boundHandleEvent = handleEvent(emitter);
         const boundHandleError = handleError(emitter);
         emitted.set(emitter, false);
@@ -30,23 +37,26 @@ export const waitForAll = <Event extends string>(event: Event, emitters: EventEm
     };
 
     const stopListening = (): void => {
-      emitters.forEach(emitter => {
-        const {boundHandleEvent, boundHandleError} = handlers.get(emitter) || {};
+      emitters.forEach((emitter) => {
+        const {boundHandleEvent, boundHandleError} =
+          handlers.get(emitter) || {};
         removeListener(emitter, event, boundHandleEvent);
         removeListener(emitter, 'error', boundHandleError);
-      }); 
-    }
-    
+      });
+    };
+
     const handleEvent = (emitter: EventEmitter<Event>) => (): void => {
       emitted.set(emitter, true);
-      if (emitters.every(emitter => emitted.get(emitter) === true)) {
+      if (emitters.every((emitter) => emitted.get(emitter) === true)) {
         stopListening();
         resolve();
       }
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleError = (_unused_emitter: EventEmitter<Event>) => (error: any): void => {
+    const handleError = (_unused_emitter: EventEmitter<Event>) => (
+      error: any,
+    ): void => {
       stopListening();
       reject(error);
     };
@@ -54,13 +64,15 @@ export const waitForAll = <Event extends string>(event: Event, emitters: EventEm
     if (emitters.length === 0) {
       resolve();
     } else {
-      startListening()
+      startListening();
     }
-
   });
 
   if (callback) {
-    promise.then(() => callback(undefined), error => callback(error));
+    promise.then(
+      () => callback(undefined),
+      (error) => callback(error),
+    );
   }
 
   return promise;

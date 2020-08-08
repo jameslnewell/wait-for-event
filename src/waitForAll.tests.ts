@@ -5,7 +5,6 @@ import {waitForAll} from './waitForAll';
 const event = 'done';
 
 describe('waitForAll()', () => {
-
   test('resolves when there are no emitters', async () => {
     await expect(waitForAll(event, [])).resolves.toBeUndefined();
   });
@@ -17,40 +16,44 @@ describe('waitForAll()', () => {
       emitter1.emit(event);
       emitter2.emit(event);
     });
-    await expect(waitForAll(event, [emitter1, emitter2])).resolves.toBeUndefined();
+    await expect(
+      waitForAll(event, [emitter1, emitter2]),
+    ).resolves.toBeUndefined();
   });
 
   test('rejects when an error event is emitted', async () => {
     const emitter1 = new EventEmitter();
     const emitter2 = new EventEmitter();
-    setImmediate(() => emitter1.emit('error', 'Uh oh!')); 
-    await expect(waitForAll(event, [emitter1, emitter2])).rejects.toEqual('Uh oh!');
+    setImmediate(() => emitter1.emit('error', 'Uh oh!'));
+    await expect(waitForAll(event, [emitter1, emitter2])).rejects.toEqual(
+      'Uh oh!',
+    );
   });
 
-  test('calls the callback when resolved', done => {
+  test('calls the callback when resolved', (done) => {
     const emitter1 = new EventEmitter();
     const emitter2 = new EventEmitter();
     setImmediate(() => {
       emitter1.emit(event);
       emitter2.emit(event);
     });
-    waitForAll(event, [emitter1, emitter2], error => {
+    waitForAll(event, [emitter1, emitter2], (error) => {
       expect(error).toBeUndefined();
       done();
     });
   });
 
-  test('calls the callback when rejected', done => {
+  test('calls the callback when rejected', (done) => {
     const emitter1 = new EventEmitter();
     const emitter2 = new EventEmitter();
     setImmediate(() => emitter1.emit('error', 'Uh oh!'));
-    waitForAll(event, [emitter1, emitter2], error => {
+    waitForAll(event, [emitter1, emitter2], (error) => {
       expect(error).not.toBeUndefined();
       done();
     });
   });
 
-  test('does not resolve or reject when no event is emitted', done => { 
+  test('does not resolve or reject when no event is emitted', (done) => {
     const emitter1 = new EventEmitter();
     const emitter2 = new EventEmitter();
     const resolved = jest.fn();
@@ -62,6 +65,4 @@ describe('waitForAll()', () => {
     }, 100);
     waitForAll(event, [emitter1, emitter2]).then(resolved, rejected);
   });
-
-
 });

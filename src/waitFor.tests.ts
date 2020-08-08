@@ -4,7 +4,6 @@ import {waitFor} from './waitFor';
 const event = 'done';
 
 describe('waitFor()', () => {
-
   test('resolves when the event is emitted', () => {
     const emitter = new EventEmitter();
     setImmediate(() => emitter.emit(event));
@@ -37,7 +36,7 @@ describe('waitFor()', () => {
     });
   });
 
-  test('does not resolve or reject when no event is emitted', done => { 
+  test('does not resolve or reject when no event is emitted', (done) => {
     const emitter = new EventEmitter();
     const resolved = jest.fn();
     const rejected = jest.fn();
@@ -48,5 +47,4 @@ describe('waitFor()', () => {
     }, 100);
     waitFor(event, emitter).then(resolved, rejected);
   });
-
 });

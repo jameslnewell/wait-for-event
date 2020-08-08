@@ -10,17 +10,19 @@ Wait for events to be emitted.
 ## Installation
 
 NPM:
+
 ```bash
 npm install --save wait-for-event
 ```
 
 Yarn:
+
 ```
 yarn add wait-for-event
 ```
 
 ## API
-  
+
 ### `.waitFor(event, emitter, [callback])`
 
 Wait for the event to be emitted by the emitter.
@@ -60,11 +62,7 @@ Resolves when `emitters` is an empty array. Resolves when the `event` is emitted
 import {EventEmitter} from 'events';
 import {waitForAll} from 'wait-for-event';
 
-const emitters = [
-  new EventEmitter(),
-  new EventEmitter(),
-  new EventEmitter()
-];
+const emitters = [new EventEmitter(), new EventEmitter(), new EventEmitter()];
 
 setImmediate(() => {
   emitters[0].emit('done');
@@ -89,11 +87,7 @@ Resolves when `emitters` is an empty array. Resolves when the `event` is emitted
 import {EventEmitter} from 'events';
 import {waitForFirst} from 'wait-for-event';
 
-const emitters = [
-  new EventEmitter(),
-  new EventEmitter(),
-  new EventEmitter()
-];
+const emitters = [new EventEmitter(), new EventEmitter(), new EventEmitter()];
 
 setImmediate(() => {
   emitters[1].emit('done');
@@ -111,17 +105,13 @@ Wait for the event to stop being emitted by the emitters for a period of time.
 - `period` - The period of time the function will wait for no events to be emitted
 - `callback` - An optional callback which is called when the function resolves or rejects
 
-Resolves when the period has elapsed and no events have been emitted.  Rejects when the `error` event is emitted by _any_ of the `emitters`.
+Resolves when the period has elapsed and no events have been emitted. Rejects when the `error` event is emitted by _any_ of the `emitters`.
 
 ```js
 import {EventEmitter} from 'events';
 import {waitForLull} from 'wait-for-event';
 
-const emitters = [
-  new EventEmitter(),
-  new EventEmitter(),
-  new EventEmitter()
-];
+const emitters = [new EventEmitter(), new EventEmitter(), new EventEmitter()];
 
 setImmediate(() => {
   emitters[0].emit('msg');
@@ -145,11 +135,11 @@ await waitForLull('msg', emitters, 3000);
 # 1.0.0
 
 - **changed:** Removed the `each` callback from `waitForAll()` - you can register your own event handlers on the emitters to achieve the same outcome.
-- **changed:** `waitForAll()` now handles `error` events 
-- **changed:** Removed support for ComponentJS 
+- **changed:** `waitForAll()` now handles `error` events
+- **changed:** Removed support for ComponentJS
 - **added:** `waitForFirst()`
 - **added:** `waitForLull()`
-- **fix:** `waitForAll()` no longer uses the primative method of counting the number of events that have been emitted - this method results in the callback being incorrectly called if an emitter emits the same event more than once. 
+- **fix:** `waitForAll()` no longer uses the primative method of counting the number of events that have been emitted - this method results in the callback being incorrectly called if an emitter emits the same event more than once.
 
 ## License
 

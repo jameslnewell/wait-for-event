@@ -16,7 +16,9 @@
     "waitfor"
   ],
   "repository": "jameslnewell/wait-for-event",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "devDependencies": {
     "@babel/cli": "^7.10.5",
@@ -25,6 +27,7 @@
     "@jameslnewell/editor-config": "^1.0.1",
     "@jameslnewell/eslint-config": "^0.15.0",
     "@jameslnewell/jest-preset": "^2.0.0",
+    "@jameslnewell/prettier-config": "^1.0.1",
     "@jameslnewell/typescript-config": "^3.0.0",
     "@types/jest": "^26.0.9",
     "eslint": "^7.6.0",
@@ -35,7 +38,8 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "formatting": "prettier --check",
+    "format": "prettier --write .",
+    "formatting": "prettier --check .",
     "linting": "eslint src",
     "typing": "tsc",
     "builing": "babel src --extensions .ts --ignore '**/*.tests.ts' --out-dir lib",
