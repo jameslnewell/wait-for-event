@@ -47,4 +47,12 @@ describe('waitFor()', () => {
     }, 100);
     waitFor(event, emitter).then(resolved, rejected);
   });
+
+  test('emit some values', () => {
+    const emitter = new EventEmitter();
+    setImmediate(() => emitter.emit(event, 'this is some value'));
+    waitFor(event, emitter, (data) => {
+      expect(data).toEqual('this is some value');
+    });
+  });
 });

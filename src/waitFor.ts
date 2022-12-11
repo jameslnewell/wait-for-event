@@ -17,9 +17,9 @@ export const waitFor = <Event extends string>(
       removeListener(emitter, 'error', handleError);
     };
 
-    const handleEvent = (): void => {
+    const handleEvent = (data: any): void => {
       stopListening();
-      resolve();
+      resolve(data);
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,7 +33,7 @@ export const waitFor = <Event extends string>(
 
   if (callback) {
     promise.then(
-      () => callback(undefined),
+      (data: any) => callback(data),
       (error) => callback(error),
     );
   }
